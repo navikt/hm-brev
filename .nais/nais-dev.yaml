@@ -1,0 +1,48 @@
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
+metadata:
+  name: hm-brev
+  namespace: teamdigihot
+  labels:
+    team: teamdigihot
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "25M"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+spec:
+  image: {{ image }}
+  team: teamdigihot
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 50
+  port: 8001
+  liveness:
+    path: /api/status
+    initialDelay: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /api/status
+    initialDelay: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  prometheus:
+    enabled: false
+  ingresses:
+    - https://hm-brev.dev.intern.nav.no
+  accessPolicy:
+    inbound:
+      rules:
+        - application: hm-saksbehandling
+    outbound:
+      external:
+        - host: ypyqai5p.api.sanity.io
+  env:
+  secureLogs:
+    enabled: true
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1024Mi
+    requests:
+      memory: 512Mi
