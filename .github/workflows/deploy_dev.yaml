@@ -7,7 +7,7 @@ on:
       - ".gitignore"
       - "LICENCE"
       - "CODEOWNERS"
-      branches:
+    branches:
         - main
 
 env:
