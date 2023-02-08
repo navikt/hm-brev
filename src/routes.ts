@@ -11,6 +11,10 @@ import { genererPdf } from './pdf'
 
 const router = express.Router()
 
+router.get('/status', (_, res) => {
+  res.status(200).end()
+})
+
 router.get(
   '/:datasett/dokument/:dokumentApiNavn/:maalform/test',
   async (req: Request, res: Response) => {
@@ -69,11 +73,10 @@ router.post(
     // logGenereringsrequestTilSecurelogger<IDokumentData>(datasett, dokumentApiNavn, dokument, req);
 
     try {
-      
-        await validerDokumentApiData(datasett, maalform)
+      await validerDokumentApiData(datasett, maalform)
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett)
       const pdf = await genererPdf(html)
-      logInfo(`pdf ${pdf}`,)
+      logInfo(`pdf ${pdf}`)
       res.setHeader('Content-Type', 'application/pdf')
       res.setHeader('Content-Disposition', `attachment; file=${dokumentApiNavn}.pdf`)
       res.end(pdf)

@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use('/api', routes)
 
-const port = 8002
+const port = 8001
 
 app.listen(port, () => {
     logInfo(`Server now listening on port: ${port}. NODE_ENV: ${NODE_ENV}`)
