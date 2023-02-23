@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Flettefelt } from '../typer/dokumentApi'
 import { NavIkon } from '../ikoner/navIkon';
+import { Feil } from '../utils/Feil';
 
 interface HeaderProps {
     tittel: string
@@ -10,6 +11,13 @@ interface HeaderProps {
 
 function Header(props: HeaderProps) {
     const {tittel, brevOpprettetDato, visLogo} = props 
+
+    if (brevOpprettetDato === undefined || brevOpprettetDato === '') {
+        throw new Feil(
+          `Mangler dato for brevet som skal vises i headeren. Sendes inn som "brevOpprettetDato" eller "dato" i flettefelter objektet.`,
+          400,
+        );
+      }
 
     return (
         <div className='header'>

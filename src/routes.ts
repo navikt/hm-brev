@@ -49,7 +49,6 @@ router.post(
     try {
       await validerDokumentApiData(datasett, maalform)
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett)
-      logInfo(html)
       res.send(html)
     } catch (feil: any) {
       if (feil instanceof Feil) {
