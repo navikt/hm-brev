@@ -1,14 +1,12 @@
 import axios, { AxiosResponse } from "axios"
+import { hentMiljøvariabler } from "./environment"
 import { Feil } from "./utils/Feil"
 import { logInfo } from "./utils/logging"
 
 export const genererPdf = async(html: string): Promise<ArrayBuffer>  => {
-    //const url = `${hentMiljøvariabler().HM_BREV_API_URL}/api/html-til-pdf`
-    const url = `http://localhost:8082/api/html-til-pdf`
+    const url = `${hentMiljøvariabler().PDF_GENERATOR_API_URL}/api/html-til-pdf`
 
     logInfo(`Genererer pdf mot ${url}`)
-    //logInfo(html)
-    
 
     return axios.post(url, html, {
         responseType: 'arraybuffer',
@@ -23,7 +21,4 @@ export const genererPdf = async(html: string): Promise<ArrayBuffer>  => {
     })
 }
 
-
-// sjekk om status tjeneste finnes 
-// alternativ til Axios? 
-// Se på den generisk PDF konverteren. Kan kanskje også brukes for søknaden?
+// TODO: alternativ til Axios? 
