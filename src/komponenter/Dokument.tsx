@@ -1,6 +1,6 @@
 import React from 'react'
 import { PortableText } from '@portabletext/react'
-import type { IDokumentData } from '../typer/dokumentApi'
+import type { IDokumentData} from '../typer/dokumentApi'
 import type { Maalform } from '../typer/sanityGrensesnitt'
 import type { Datasett } from '../sanity/sanityClient'
 import { client } from '../sanity/sanityClient'
@@ -11,6 +11,7 @@ import { dokumentType } from '../typer/DokumentType'
 import BlockSerializer from './serializers/BlockSerializer'
 import DelmalSerializer from './serializers/DelmalSerializer'
 import FlettefeltSerializer from './serializers/FlettefeltSerializer'
+import BegrunnelserSerializer from './serializers/BegrunnelserSerializer'
 
 interface DokumentProps {
   dokumentApiNavn: string
@@ -60,6 +61,14 @@ const Dokument = (dokumentProps: DokumentProps) => {
               flettefelter: dokumentData?.flettefelter,
               dokumentApiNavn,
             }),
+            begrunnelser: (props: any) => 
+            BegrunnelserSerializer({
+                sanityProps: props, 
+                begrunnelser: dokumentData?.begrunnelser,
+                flettefelter: dokumentData?.flettefelter,
+                maalform,
+                datasett, 
+            })
         },
       }}
     />

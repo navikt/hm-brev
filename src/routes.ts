@@ -76,7 +76,6 @@ router.post(
       await validerDokumentApiData(datasett, maalform)
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett)
       const pdf = await genererPdf(html)
-      logInfo(`pdf ${pdf}`)
       res.setHeader('Content-Type', 'application/pdf')
       res.setHeader('Content-Disposition', `attachment; file=${dokumentApiNavn}.pdf`)
       res.end(pdf)

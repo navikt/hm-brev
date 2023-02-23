@@ -31,3 +31,13 @@ export const hentDelmalQuery = (maalform: string) =>
         },
       }
     }`
+
+
+
+    export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
+ *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
+   {..., 
+   }
+ }
+
+`;

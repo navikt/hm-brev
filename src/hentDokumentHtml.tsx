@@ -4,7 +4,6 @@ import type { IDokumentData } from './typer/dokumentApi'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { Maalform } from './typer/sanityGrensesnitt'
 import { Feil } from './utils/Feil'
-import { logInfo } from './utils/logging'
 import Context from './utils/Context'
 import css from './styles/css'
 import Header from './komponenter/Header'
@@ -19,8 +18,6 @@ const hentDokumentHtml = async (
   const query = `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
     maalform == Maalform.NB ? 'Bokmaal' : 'Nynorsk'
   }`
-
-  logInfo(`Hent dokument query ${query}`)
 
   const htmlLang = () => {
     return maalform === Maalform.NB ? 'nb' : 'nn'
