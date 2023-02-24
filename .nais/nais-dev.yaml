@@ -35,6 +35,8 @@ spec:
       rules:
         - application: hm-saksbehandling
     outbound:
+      rules:
+        - application: hm-pdf-generator
       external:
         - host: ypyqai5p.api.sanity.io
   env:
