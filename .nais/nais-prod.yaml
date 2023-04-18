@@ -14,7 +14,7 @@ spec:
   team: teamdigihot
   replicas:
     min: 2
-    max: 2
+    max: 3
     cpuThresholdPercentage: 50
   port: 8001
   liveness:
