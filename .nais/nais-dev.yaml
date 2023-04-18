@@ -29,7 +29,7 @@ spec:
   prometheus:
     enabled: false
   ingresses:
-    - https://hm-brev.dev.intern.nav.no
+    - https://hm-brev.intern.dev.nav.no
   accessPolicy:
     inbound:
       rules:
