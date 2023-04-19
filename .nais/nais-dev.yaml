@@ -39,6 +39,7 @@ spec:
         - application: hm-pdf-generator
       external:
         - host: ypyqai5p.api.sanity.io
+        - host: ypyqai5p.apicdn.sanity.io
   env:
   secureLogs:
     enabled: true
