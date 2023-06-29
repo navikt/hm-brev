@@ -6,8 +6,8 @@ Appen generer html fra innsendte flettefelter ved bruk av sanity (se [hm-sanity-
 Konsumenter kan få returnert html eller pdf/bytearray.
 
 # Kjør server lokalt
-* Pass på at du har instalert alle NPM-avhengighetene `yarn`
-* Kjør `yarn start:dev`
+* Pass på at du har instalert alle NPM-avhengighetene `npm install`
+* Kjør `npm run dev`
 
 # Bygg og deploy
 Appen bygges hos github actions og gir beskjed til nais deploy om å deployere appen på gcp. 

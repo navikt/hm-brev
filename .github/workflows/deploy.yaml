@@ -1,4 +1,4 @@
-name: Build and deploy dev
+name: Build and deploy to dev
 
 on:
   push:
@@ -18,39 +18,41 @@ jobs:
     name: Build and push Docker container
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
+          cache: 'npm'
       - name: Build and publish Docker image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          yarn
-          yarn build
+          npm install
+          npm run build
           docker build . -t ${IMAGE}
           docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
+
   deploy-dev:
-    name: Deploy to dev-gcp
+    name: Deploy to dev
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais-dev.yaml
+
   deploy-prod:
-    name: Deploy to prod-gcp
+    name: Deploy to prod
     needs: deploy-dev
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v1
+        - uses: actions/checkout@v3
         - uses: nais/deploy/actions/deploy@v1
           env:
             APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
             CLUSTER: prod-gcp
             RESOURCE: .nais/nais-prod.yaml
-    

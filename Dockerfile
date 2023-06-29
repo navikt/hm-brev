@@ -3,4 +3,4 @@ ADD ./ /var/server
 
 EXPOSE 8001
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
