@@ -6,22 +6,22 @@ import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
 import css from './styles/css'
 import type { IDokumentData } from './typer/dokumentApi'
-import { Maalform } from './typer/sanityGrensesnitt'
+import { Målform } from './typer/sanityGrensesnitt'
 import Context from './utils/Context'
 import { Feil } from './utils/Feil'
 
 const hentDokumentHtml = async (
   apiDokument: IDokumentData,
-  maalform: Maalform,
+  maalform: Målform,
   dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> => {
   const query = `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-    maalform == Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+    maalform == Målform.NB ? 'Bokmaal' : 'Nynorsk'
   }`
 
   const htmlLang = () => {
-    return maalform === Maalform.NB ? 'nb' : 'nn'
+    return maalform === Målform.NB ? 'nb' : 'nn'
   }
 
   const [tittel] = await client(datasett).fetch(query)

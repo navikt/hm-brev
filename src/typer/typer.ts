@@ -1,4 +1,4 @@
-import type { Maalform } from './sanityGrensesnitt'
+import type { Målform } from './sanityGrensesnitt'
 
 export type Begrunnelser = string[]
 
@@ -12,7 +12,7 @@ export interface IStandardbegrunnelsedata {
   antallBarnOppfyllerTriggereOgHarUtbetaling: number
   antallBarnOppfyllerTriggereOgHarNullutbetaling: number
   maanedOgAarBegrunnelsenGjelderFor: string
-  maalform: Maalform
+  maalform: Målform
   soknadstidspunkt: string
   avtaletidspunktDeltBosted: string
   belop: string

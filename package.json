@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
-    "dev": "NODE_ENV=development node -r @swc-node/register src/index.ts",
+    "dev": "NODE_ENV=development node --enable-source-maps -r @swc-node/register src/index.ts",
     "build": "tsc -p .",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=production node --enable-source-maps dist/index.js",
     "prepare": "husky install",
     "prettier": "prettier . -c"
   },

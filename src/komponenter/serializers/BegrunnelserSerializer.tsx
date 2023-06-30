@@ -4,7 +4,7 @@ import { hentBegrunnelseTekstQuery } from '../../sanity/Queries'
 import type { Datasett } from '../../sanity/sanityClient'
 import { client } from '../../sanity/sanityClient'
 import { Feil } from '../../utils/Feil'
-import type { Maalform } from '../../typer/sanityGrensesnitt'
+import type { Målform } from '../../typer/sanityGrensesnitt'
 import { validerBegrunnelse } from '../../utils/valideringer/valideringer'
 import begrunnelseSerializer from './begrunnelseSerializer'
 import type { Begrunnelser } from '../../typer/typer'
@@ -14,7 +14,7 @@ interface IPeriodeProps {
   sanityProps: any
   begrunnelser?: Begrunnelser
   flettefelter?: Flettefelter
-  maalform: Maalform
+  maalform: Målform
   datasett: Datasett
 }
 
@@ -47,14 +47,14 @@ const BegrunnelserSerializer = (props: IPeriodeProps) => {
 }
 
 const BegrunnelseWrapper = (props: {
-  maalform: Maalform
+  maalform: Målform
   datasett: Datasett
   begrunnelse: string
   flettefelter: Flettefelter
 }) => {
   const { maalform, datasett, begrunnelse, flettefelter } = props
 
-  const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: Maalform): any => {
+  const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: Målform): any => {
     const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform)
 
     return useServerEffect(undefined, query, () =>
@@ -67,7 +67,7 @@ const BegrunnelseWrapper = (props: {
     )[0]
   }
 
-  const byggBegrunnelse = (begrunnelse: string, målform: Maalform, flettefelter: Flettefelter) => {
+  const byggBegrunnelse = (begrunnelse: string, målform: Målform, flettefelter: Flettefelter) => {
     const begrunnelsetekstFraSanity = hentBegrunnelsetekst(begrunnelse, målform)
     return begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelse, flettefelter)
   }

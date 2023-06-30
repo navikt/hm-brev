@@ -1,9 +1,8 @@
 .eslintrc
 dist/**/*
+*.css
+*.html
 *.json
-*.less
+*.md
 *.yaml
 *.yml
-*.md
-*.html
-*.css

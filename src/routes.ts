@@ -5,7 +5,7 @@ import { genererPdf } from './pdf'
 import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
 import type { IDokumentData } from './typer/dokumentApi'
-import { Maalform } from './typer/sanityGrensesnitt'
+import { Målform } from './typer/sanityGrensesnitt'
 import { Feil } from './utils/Feil'
 import { logError, logInfo } from './utils/logging'
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData'
@@ -18,12 +18,12 @@ router.get('/status', (_, res) => {
 
 router.get('/:datasett/dokument/:dokumentApiNavn/:maalform/test', async (req: Request, res: Response) => {
   const datasett = req.params.datasett as Datasett
-  const maalform = req.params.maalform as Maalform
+  const maalform = req.params.maalform as Målform
   const dokumentApiNavn = req.params.dokumentApiNavn
 
   try {
     const query = `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-      maalform == Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+      maalform == Målform.NB ? 'Bokmaal' : 'Nynorsk'
     }`
 
     logInfo(`Hent dokument query ${query}`)
@@ -37,7 +37,7 @@ router.get('/:datasett/dokument/:dokumentApiNavn/:maalform/test', async (req: Re
 
 router.post('/:datasett/dokument/:dokumentApiNavn/:maalform/html', async (req: Request, res: Response) => {
   const datasett = req.params.datasett as Datasett
-  const maalform = req.params.maalform as Maalform
+  const maalform = req.params.maalform as Målform
   const dokumentApiNavn = req.params.dokumentApiNavn
 
   const dokument: IDokumentData = req.body as IDokumentData
@@ -58,7 +58,7 @@ router.post('/:datasett/dokument/:dokumentApiNavn/:maalform/html', async (req: R
 
 router.post('/:datasett/dokument/:dokumentApiNavn/:maalform/pdf', async (req: Request, res: Response) => {
   const datasett = req.params.datasett as Datasett
-  const maalform = req.params.maalform as Maalform
+  const maalform = req.params.maalform as Målform
   const dokumentApiNavn = req.params.dokumentApiNavn
 
   const dokument: IDokumentData = req.body as IDokumentData

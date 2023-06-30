@@ -1,13 +1,13 @@
 import { PortableText } from '@portabletext/react'
 import React from 'react'
 import type { IDelmalData } from '../../typer/dokumentApi'
-import type { Maalform } from '../../typer/sanityGrensesnitt'
+import type { Målform } from '../../typer/sanityGrensesnitt'
 import BlockSerializer from './BlockSerializer'
 
 interface IDelmalSerializerProps {
   sanityProps: any
   delmalData: IDelmalData | undefined
-  maalform: Maalform
+  maalform: Målform
 }
 
 const DelmalSerializer = (props: IDelmalSerializerProps) => {

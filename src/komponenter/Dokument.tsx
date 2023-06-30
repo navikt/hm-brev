@@ -1,7 +1,7 @@
 import React from 'react'
 import { PortableText } from '@portabletext/react'
 import type { IDokumentData } from '../typer/dokumentApi'
-import type { Maalform } from '../typer/sanityGrensesnitt'
+import type { Målform } from '../typer/sanityGrensesnitt'
 import type { Datasett } from '../sanity/sanityClient'
 import { client } from '../sanity/sanityClient'
 import { Feil } from '../utils/Feil'
@@ -16,7 +16,7 @@ import BegrunnelserSerializer from './serializers/BegrunnelserSerializer'
 interface DokumentProps {
   dokumentApiNavn: string
   dokumentData: IDokumentData | undefined
-  maalform: Maalform
+  maalform: Målform
   datasett: Datasett
 }
 
