@@ -6,17 +6,11 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
-    "dev": "node -r @swc-node/register src/index.ts",
+    "dev": "NODE_ENV=development node -r @swc-node/register src/index.ts",
     "build": "tsc -p .",
     "start": "NODE_ENV=production node dist/index.js",
     "prepare": "husky install",
     "prettier": "prettier . -c"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,css}": [
-      "prettier --write",
-      "eslint --fix src/"
-    ]
   },
   "dependencies": {
     "@portabletext/react": "3.0.4",
@@ -25,7 +19,6 @@
     "dotenv": "16.3.1",
     "express": "4.18.2",
     "express-session": "1.17.3",
-    "node-fetch": "3.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "winston": "3.9.0"
@@ -54,5 +47,11 @@
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
     "typescript": "^5.1.6"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "eslint --fix src/"
+    ]
   }
 }

@@ -1,5 +1,4 @@
-import sanityClient from '@sanity/client'
-import { NODE_ENV } from '..'
+import { createClient } from '@sanity/client'
 
 export enum Datasett {
   HOTSAK_BREV_PROD = 'hotsak-brev-prod',
@@ -7,10 +6,10 @@ export enum Datasett {
 }
 
 export const client = (dataset: Datasett) => {
-  return sanityClient({
+  return createClient({
     projectId: 'ypyqai5p',
     dataset,
-    useCdn: NODE_ENV === 'production',
+    useCdn: process.env.NODE_ENV === 'production',
     apiVersion: '2021-06-07',
   })
 }
