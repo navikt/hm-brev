@@ -1,8 +1,4 @@
-export const hentDokumentQuery = (
-  dokumentType: string,
-  dokumentApiNavn: string,
-  maalform: string,
-) => `
+export const hentDokumentQuery = (dokumentType: string, dokumentApiNavn: string, maalform: string) => `
   *[_type == "${dokumentType}" && apiNavn == "${dokumentApiNavn}"][0]
     {..., ${maalform}[]
       { ...,
@@ -32,12 +28,10 @@ export const hentDelmalQuery = (maalform: string) =>
       }
     }`
 
-
-
-    export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
+export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
  *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
    {..., 
    }
  }
 
-`;
+`

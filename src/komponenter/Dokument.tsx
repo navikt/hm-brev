@@ -1,6 +1,6 @@
 import React from 'react'
 import { PortableText } from '@portabletext/react'
-import type { IDokumentData} from '../typer/dokumentApi'
+import type { IDokumentData } from '../typer/dokumentApi'
 import type { Maalform } from '../typer/sanityGrensesnitt'
 import type { Datasett } from '../sanity/sanityClient'
 import { client } from '../sanity/sanityClient'
@@ -29,10 +29,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
       .fetch(query)
       .then((res: any) => {
         if (!res[maalform]) {
-          throw new Feil(
-            `Fant ikke ${maalform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}"`,
-            404,
-          )
+          throw new Feil(`Fant ikke ${maalform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}"`, 404)
         }
 
         return res[maalform]
@@ -61,14 +58,14 @@ const Dokument = (dokumentProps: DokumentProps) => {
               flettefelter: dokumentData?.flettefelter,
               dokumentApiNavn,
             }),
-            begrunnelser: (props: any) => 
+          begrunnelser: (props: any) =>
             BegrunnelserSerializer({
-                sanityProps: props, 
-                begrunnelser: dokumentData?.begrunnelser,
-                flettefelter: dokumentData?.flettefelter,
-                maalform,
-                datasett, 
-            })
+              sanityProps: props,
+              begrunnelser: dokumentData?.begrunnelser,
+              flettefelter: dokumentData?.flettefelter,
+              maalform,
+              datasett,
+            }),
         },
       }}
     />

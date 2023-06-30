@@ -14,7 +14,6 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const { sanityProps, maalform } = props
   const { delmalReferanse } = sanityProps.value
 
-
   // TODO Flettefelt i delmaler er ikke støttet enda
 
   return (

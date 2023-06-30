@@ -3,12 +3,14 @@
   "type": "commonjs",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
     "dev": "node -r @swc-node/register src/index.ts",
     "build": "tsc -p .",
     "start": "NODE_ENV=production node dist/index.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier . -c"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [

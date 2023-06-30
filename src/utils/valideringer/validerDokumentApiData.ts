@@ -11,4 +11,3 @@ export default async (datasett: Datasett, maalform: Maalform) => {
     throw new Feil(`Målformen "${maalform}" finnes ikke.`, 404)
   }
 }
-

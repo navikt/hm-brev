@@ -1,4 +1,4 @@
 export enum dokumentType {
-    DELMAL = 'delmal',
-    DOKUMENT = 'dokument'
+  DELMAL = 'delmal',
+  DOKUMENT = 'dokument',
 }

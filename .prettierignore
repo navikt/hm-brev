@@ -1,3 +1,5 @@
+.eslintrc
+dist/**/*
 *.json
 *.less
 *.yaml

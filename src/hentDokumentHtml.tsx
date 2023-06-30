@@ -1,13 +1,14 @@
 import * as React from 'react'
-import { client, Datasett } from './sanity/sanityClient'
-import type { IDokumentData } from './typer/dokumentApi'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { Maalform } from './typer/sanityGrensesnitt'
-import { Feil } from './utils/Feil'
-import Context from './utils/Context'
-import css from './styles/css'
-import Header from './komponenter/Header'
 import Dokument from './komponenter/Dokument'
+import Header from './komponenter/Header'
+import type { Datasett } from './sanity/sanityClient'
+import { client } from './sanity/sanityClient'
+import css from './styles/css'
+import type { IDokumentData } from './typer/dokumentApi'
+import { Maalform } from './typer/sanityGrensesnitt'
+import Context from './utils/Context'
+import { Feil } from './utils/Feil'
 
 const hentDokumentHtml = async (
   apiDokument: IDokumentData,
@@ -26,10 +27,7 @@ const hentDokumentHtml = async (
   const [tittel] = await client(datasett).fetch(query)
 
   if (!tittel) {
-    throw new Feil(
-      `Fant ikke ${maalform}-tittel til "${dokumentApiNavn}" i datasettet "${datasett}`,
-      404,
-    )
+    throw new Feil(`Fant ikke ${maalform}-tittel til "${dokumentApiNavn}" i datasettet "${datasett}`, 404)
   }
 
   const contextValue = { requests: [] }
@@ -47,11 +45,8 @@ const hentDokumentHtml = async (
             <Header
               visLogo={true}
               tittel={tittel}
-              brevOpprettetDato={
-                apiDokument?.flettefelter?.brevOpprettetDato || apiDokument?.flettefelter?.dato
-              }
+              brevOpprettetDato={apiDokument?.flettefelter?.brevOpprettetDato || apiDokument?.flettefelter?.dato}
             />
-            
             <Dokument
               dokumentApiNavn={dokumentApiNavn}
               dokumentData={apiDokument}

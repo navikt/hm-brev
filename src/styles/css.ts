@@ -59,4 +59,4 @@ export default `
     white-space: normal;
   }
   
-`;
+`

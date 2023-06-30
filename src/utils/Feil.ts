@@ -8,6 +8,6 @@ export class Feil extends Error {
     this.code = code
     this.error = error
 
-  logError(message)
-}
+    logError(message)
+  }
 }

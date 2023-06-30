@@ -1,28 +1,26 @@
-import React from "react";
-import {rightTrimLastProp} from '../../utils/rightTrim'
+import React from 'react'
+import { rightTrimLastProp } from '../../utils/rightTrim'
 
 const settTag = (node: any) => {
-    const style = node.style 
+  const style = node.style
 
-    if(RegExp('/?h[1-6]').test(style)) {
-        return style 
-    }
+  if (RegExp('/?h[1-6]').test(style)) {
+    return style
+  }
 
-    return 'div'
-
+  return 'div'
 }
 
 const BlockSerializer = (props: any): JSX.Element => {
-    const children = rightTrimLastProp(props)
+  const children = rightTrimLastProp(props)
 
-    const Tag = settTag(props.value)
+  const Tag = settTag(props.value)
 
-    return <Tag style={{minHeight: '1rem'}} className={'block'}>
-        {children}
+  return (
+    <Tag style={{ minHeight: '1rem' }} className={'block'}>
+      {children}
     </Tag>
-
-    
+  )
 }
-
 
 export default BlockSerializer

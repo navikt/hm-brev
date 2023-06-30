@@ -5,4 +5,3 @@ export const validerBegrunnelse = (begrunnelseFraSanity: any, apiNavn: string) =
     throw new Feil(`Fant ikke begrunnelse med apiNavn ${apiNavn}`, 404)
   }
 }
-

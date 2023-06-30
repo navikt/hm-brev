@@ -1,15 +1,15 @@
-import type { Begrunnelser } from "./typer";
+import type { Begrunnelser } from './typer'
 
 export interface IDokumentData {
-    delmalData: IDelmalData
-    flettefelter: Flettefelter 
-    begrunnelser: Begrunnelser
+  delmalData: IDelmalData
+  flettefelter: Flettefelter
+  begrunnelser: Begrunnelser
 }
 
 export interface IDelmalData {
-    [key: string]: Flettefelter
+  [key: string]: Flettefelter
 }
 
-export type Flettefelter = {[key: string]: Flettefelt}
+export type Flettefelter = { [key: string]: Flettefelt }
 
 export type Flettefelt = string

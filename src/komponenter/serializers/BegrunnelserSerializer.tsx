@@ -5,9 +5,7 @@ import type { Datasett } from '../../sanity/sanityClient'
 import { client } from '../../sanity/sanityClient'
 import { Feil } from '../../utils/Feil'
 import type { Maalform } from '../../typer/sanityGrensesnitt'
-import {
-  validerBegrunnelse,
-} from '../../utils/valideringer/valideringer'
+import { validerBegrunnelse } from '../../utils/valideringer/valideringer'
 import begrunnelseSerializer from './begrunnelseSerializer'
 import type { Begrunnelser } from '../../typer/typer'
 import type { Flettefelter } from '../../typer/dokumentApi'
@@ -71,10 +69,7 @@ const BegrunnelseWrapper = (props: {
 
   const byggBegrunnelse = (begrunnelse: string, målform: Maalform, flettefelter: Flettefelter) => {
     const begrunnelsetekstFraSanity = hentBegrunnelsetekst(begrunnelse, målform)
-    return (
-      begrunnelsetekstFraSanity &&
-      begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelse, flettefelter)
-    )
+    return begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelse, flettefelter)
   }
 
   const begrunnelseTekst = byggBegrunnelse(begrunnelse, maalform, flettefelter)

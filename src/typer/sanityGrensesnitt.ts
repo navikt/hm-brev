@@ -1,5 +1,4 @@
 export enum Maalform {
-    NB = 'bokmaal',
-    NN = 'nynorsk'
+  NB = 'bokmaal',
+  NN = 'nynorsk',
 }
-
