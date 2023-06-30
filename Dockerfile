@@ -1,6 +1,7 @@
-FROM navikt/node-express:16
-ADD ./ /var/server
-
+FROM gcr.io/distroless/nodejs:18
+WORKDIR /app
+COPY node_modules node_modules
+COPY dist .
 EXPOSE 8001
-
-CMD ["npm", "start"]
+ENV NODE_ENV production
+CMD [ "--enable-source-maps", "-r", "dotenv/config", "index.js" ]
