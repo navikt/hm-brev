@@ -1,5 +1,5 @@
 import express from 'express'
-import hentDokumentHtml from './hentDokumentHtml'
+import { hentDokumentHtml } from './hentDokumentHtml'
 import { genererPdf } from './pdf'
 import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
@@ -7,7 +7,7 @@ import type { IDokumentData } from './typer/dokumentApi'
 import { Målform } from './typer/sanityGrensesnitt'
 import { Feil } from './utils/Feil'
 import { logError, logInfo } from './utils/logging'
-import validerDokumentApiData from './utils/valideringer/validerDokumentApiData'
+import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData'
 
 const router = express.Router()
 
@@ -82,4 +82,4 @@ router.post<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: s
   },
 )
 
-export default router
+export { router as routes }

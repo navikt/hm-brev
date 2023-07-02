@@ -2,7 +2,7 @@ import { Datasett } from '../../sanity/sanityClient'
 import { Målform } from '../../typer/sanityGrensesnitt'
 import { Feil } from '../Feil'
 
-export default async (datasett: Datasett, maalform: Målform) => {
+export async function validerDokumentApiData(datasett: Datasett, maalform: Målform) {
   if (!Object.values(Datasett).includes(datasett)) {
     throw new Feil(`Datasettet "${datasett}" finnes ikke`, 404)
   }

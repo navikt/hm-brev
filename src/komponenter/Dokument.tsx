@@ -7,7 +7,7 @@ import { client } from '../sanity/sanityClient'
 import { Feil } from '../utils/Feil'
 import useServerEffect from '../utils/useServerEffect'
 import { hentDokumentQuery } from '../sanity/Queries'
-import { dokumentType } from '../typer/DokumentType'
+import { DokumentType } from '../typer/DokumentType'
 import BlockSerializer from './serializers/BlockSerializer'
 import DelmalSerializer from './serializers/DelmalSerializer'
 import FlettefeltSerializer from './serializers/FlettefeltSerializer'
@@ -24,7 +24,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
   const { dokumentApiNavn, dokumentData, maalform, datasett } = dokumentProps
 
   const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
-    const query = hentDokumentQuery(dokumentType.DOKUMENT, dokumentApiNavn, maalform)
+    const query = hentDokumentQuery(DokumentType.DOKUMENT, dokumentApiNavn, maalform)
     return client(datasett)
       .fetch(query)
       .then((res: any) => {

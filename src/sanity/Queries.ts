@@ -15,9 +15,9 @@ export const hentDokumentQuery = (dokumentType: string, dokumentApiNavn: string,
     }
    `
 
-export const hentDelmalQuery = (maalform: string) =>
-  `{
-      ..., ${maalform}[]{
+export const hentDelmalQuery = (målform: string) => `
+   {
+      ..., ${målform}[]{
         ..., 
         _type == "block"=> {..., markDefs[]{
             ...,
@@ -26,12 +26,12 @@ export const hentDelmalQuery = (maalform: string) =>
         _type == "flettefelt" => {..., flettefeltReferanse->}
         },
       }
-    }`
+   }
+`
 
-export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
- *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
+export const hentBegrunnelseTekstQuery = (apiNavn: string, målform: string) => `
+ *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${målform}[]{...,children[]
    {..., 
    }
  }
-
 `

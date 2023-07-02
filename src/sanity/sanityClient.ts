@@ -5,7 +5,7 @@ export enum Datasett {
   HOTSAK_BREV_DEV = 'hotsak-brev-dev',
 }
 
-export const client = (dataset: Datasett) => {
+export function client(dataset: Datasett) {
   return createClient({
     projectId: 'ypyqai5p',
     dataset,
