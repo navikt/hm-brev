@@ -77,7 +77,7 @@ router.post<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: s
       }
 
       logError(`Generering av PDF-dokument feilet: ${feil.message}`)
-      return res.status(500).send(`Generering av pdf dokument feilet: ${feil.message}`)
+      return res.status(500).send(`Generering av PDF-dokument feilet: ${feil.message}`)
     }
   },
 )

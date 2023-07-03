@@ -6,7 +6,7 @@ import { logInfo } from './utils/logging'
 export async function genererPdf(html: string): Promise<ArrayBuffer> {
   const url = `${hentMiljøvariabler().PDF_GENERATOR_API_URL}/api/html-til-pdf`
 
-  logInfo(`Genererer pdf mot ${url}`)
+  logInfo(`Genererer PDF mot '${url}'`)
 
   try {
     const response = await axios.post<any, any, string>(url, html, {
