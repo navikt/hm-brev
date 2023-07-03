@@ -9,13 +9,14 @@ export async function genererPdf(html: string): Promise<ArrayBuffer> {
   logInfo(`Genererer pdf mot ${url}`)
 
   try {
-    return await axios.post<any, ArrayBuffer, string>(url, html, {
+    const response = await axios.post<any, any, string>(url, html, {
       responseType: 'arraybuffer',
       headers: {
         Accept: 'application/pdf',
         'Content-Type': 'text/html',
       },
     })
+    return response.data
   } catch (e: any) {
     throw new Feil('Feil mot hm-pdf-generator', 500, e)
   }
