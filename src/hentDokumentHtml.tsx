@@ -4,7 +4,7 @@ import Dokument from './komponenter/Dokument'
 import Header from './komponenter/Header'
 import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
-import css from './styles/css'
+import { styles } from './styles/styles'
 import type { IDokumentData } from './typer/dokumentApi'
 import { Målform } from './typer/sanityGrensesnitt'
 import Context from './utils/Context'
@@ -37,7 +37,7 @@ export async function hentDokumentHtml(
       <html lang={htmlLang()}>
         <head>
           <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-          <style type="text/css">{css}</style>
+          <style type="text/css">{styles}</style>
           <title>{tittel}</title>
         </head>
         <body className={'body'}>
