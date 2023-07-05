@@ -1,25 +1,25 @@
 import React from 'react'
-import useServerEffect from '../../utils/useServerEffect'
 import { hentBegrunnelseTekstQuery } from '../../sanity/Queries'
 import type { Datasett } from '../../sanity/sanityClient'
 import { client } from '../../sanity/sanityClient'
-import { Feil } from '../../utils/Feil'
-import type { Målform } from '../../typer/sanityGrensesnitt'
-import { validerBegrunnelse } from '../../utils/valideringer/valideringer'
-import begrunnelseSerializer from './begrunnelseSerializer'
-import type { Begrunnelser } from '../../typer/typer'
 import type { Flettefelter } from '../../typer/dokumentApi'
+import type { Målform } from '../../typer/sanityGrensesnitt'
+import type { Begrunnelser } from '../../typer/typer'
+import { Feil } from '../../utils/Feil'
+import { useServerEffect } from '../../utils/useServerEffect'
+import { validerBegrunnelse } from '../../utils/valideringer/valideringer'
+import { begrunnelseSerializer } from './begrunnelseSerializer'
 
-interface IPeriodeProps {
+export interface BegrunnelserSerializerProps {
   sanityProps: any
   begrunnelser?: Begrunnelser
   flettefelter?: Flettefelter
-  maalform: Målform
+  målform: Målform
   datasett: Datasett
 }
 
-const BegrunnelserSerializer = (props: IPeriodeProps) => {
-  const { begrunnelser, maalform, datasett, flettefelter } = props
+export function BegrunnelserSerializer(props: BegrunnelserSerializerProps) {
+  const { begrunnelser, målform, datasett, flettefelter } = props
 
   if (!begrunnelser) {
     throw new Feil('Mangler begrunnelser i payload', 400)
@@ -36,7 +36,7 @@ const BegrunnelserSerializer = (props: IPeriodeProps) => {
           <BegrunnelseWrapper
             key={`${begrunnelse[0]}-${index}`}
             datasett={datasett}
-            maalform={maalform}
+            målform={målform}
             begrunnelse={begrunnelse}
             flettefelter={flettefelter}
           />
@@ -46,13 +46,13 @@ const BegrunnelserSerializer = (props: IPeriodeProps) => {
   )
 }
 
-const BegrunnelseWrapper = (props: {
-  maalform: Målform
+function BegrunnelseWrapper(props: {
+  målform: Målform
   datasett: Datasett
   begrunnelse: string
   flettefelter: Flettefelter
-}) => {
-  const { maalform, datasett, begrunnelse, flettefelter } = props
+}) {
+  const { målform, datasett, begrunnelse, flettefelter } = props
 
   const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: Målform): any => {
     const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform)
@@ -72,9 +72,7 @@ const BegrunnelseWrapper = (props: {
     return begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelse, flettefelter)
   }
 
-  const begrunnelseTekst = byggBegrunnelse(begrunnelse, maalform, flettefelter)
+  const begrunnelseTekst = byggBegrunnelse(begrunnelse, målform, flettefelter)
 
   return <li className={`block`}>{begrunnelseTekst}</li>
 }
-
-export default BegrunnelserSerializer

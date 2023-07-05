@@ -1,6 +1,6 @@
-export const hentDokumentQuery = (dokumentType: string, dokumentApiNavn: string, maalform: string) => `
+export const hentDokumentQuery = (dokumentType: string, dokumentApiNavn: string, målform: string) => `
   *[_type == "${dokumentType}" && apiNavn == "${dokumentApiNavn}"][0]
-    {..., ${maalform}[]
+    {..., ${målform}[]
       { ...,
         _type == "block"=> {..., markDefs[]{
           ...,
@@ -9,7 +9,7 @@ export const hentDokumentQuery = (dokumentType: string, dokumentApiNavn: string,
         },
         _type == "flettefelt" => {..., flettefeltReferanse->},
         _type == "delmal" => {..., 
-          delmalReferanse->${hentDelmalQuery(maalform)}
+          delmalReferanse->${hentDelmalQuery(målform)}
         },
       }
     }

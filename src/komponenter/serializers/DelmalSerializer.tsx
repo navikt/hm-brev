@@ -2,16 +2,16 @@ import { PortableText } from '@portabletext/react'
 import React from 'react'
 import type { IDelmalData } from '../../typer/dokumentApi'
 import type { Målform } from '../../typer/sanityGrensesnitt'
-import BlockSerializer from './BlockSerializer'
+import { BlockSerializer } from './BlockSerializer'
 
-interface IDelmalSerializerProps {
+export interface DelmalSerializerProps {
   sanityProps: any
-  delmalData: IDelmalData | undefined
-  maalform: Målform
+  delmalData?: IDelmalData
+  målform: Målform
 }
 
-const DelmalSerializer = (props: IDelmalSerializerProps) => {
-  const { sanityProps, maalform } = props
+export function DelmalSerializer(props: DelmalSerializerProps) {
+  const { sanityProps, målform } = props
   const { delmalReferanse } = sanityProps.value
 
   // TODO Flettefelt i delmaler er ikke støttet enda
@@ -19,7 +19,7 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
   return (
     <div className="delmal">
       <PortableText
-        value={delmalReferanse[maalform]}
+        value={delmalReferanse[målform]}
         components={{
           block: BlockSerializer,
           types: {
@@ -30,5 +30,3 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
     </div>
   )
 }
-
-export default DelmalSerializer

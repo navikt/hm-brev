@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import Dokument from './komponenter/Dokument'
-import Header from './komponenter/Header'
+import { Dokument } from './komponenter/Dokument'
+import { Header } from './komponenter/Header'
 import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
 import { styles } from './styles/styles'
 import type { IDokumentData } from './typer/dokumentApi'
 import { Målform } from './typer/sanityGrensesnitt'
-import Context from './utils/Context'
+import { Context } from './utils/Context'
 import { Feil } from './utils/Feil'
 
 export async function hentDokumentHtml(
@@ -16,7 +16,7 @@ export async function hentDokumentHtml(
   dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> {
-  const query = `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+  const query = `*[ _type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
     målform == Målform.NB ? 'Bokmaal' : 'Nynorsk'
   }`
 
@@ -50,7 +50,7 @@ export async function hentDokumentHtml(
             <Dokument
               dokumentApiNavn={dokumentApiNavn}
               dokumentData={apiDokument}
-              maalform={målform}
+              målform={målform}
               datasett={datasett}
             />
           </div>

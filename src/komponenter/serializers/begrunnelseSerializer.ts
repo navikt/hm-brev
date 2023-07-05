@@ -3,11 +3,11 @@ import type { BegrunnelseBlock, FlettefeltBlock, SpanBlock } from '../../typer/t
 import { Feil } from '../../utils/Feil'
 import { formaterFlettefelt } from '../formateringer/formaterFlettefelt'
 
-const begrunnelseSerializer = (
+export function begrunnelseSerializer(
   blocks: BegrunnelseBlock[] | Record<string, never>,
   begunnelseApiNavn: string,
   flettefelter: Flettefelter,
-): string => {
+): string {
   if (!Array.isArray(blocks)) {
     throw new Feil(`Fant ikke begrunnelse med apiNavn=${begunnelseApiNavn}`, 404)
   }
@@ -21,11 +21,11 @@ const begrunnelseSerializer = (
     .join('\n\n')
 }
 
-const formaterSanityBlock = (
+function formaterSanityBlock(
   block: SpanBlock | FlettefeltBlock | any,
   flettefelter: Flettefelter,
   begunnelseApiNavn: string,
-): string => {
+): string {
   switch (block._type) {
     case 'span':
       return block.text
@@ -35,5 +35,3 @@ const formaterSanityBlock = (
       throw new Feil(`Ukjent block fra santity. Det er ikke laget noen funksjonalitet for ${block._type}`, 400)
   }
 }
-
-export default begrunnelseSerializer

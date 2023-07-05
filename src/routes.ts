@@ -15,18 +15,19 @@ router.get('/status', (_, res) => {
   res.status(200).end()
 })
 
-router.get<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: string }>(
-  '/:datasett/dokument/:dokumentApiNavn/:maalform/test',
+router.get<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }>(
+  '/:datasett/dokument/:dokumentApiNavn/:malform/test',
   async (req, res) => {
-    const { datasett, maalform, dokumentApiNavn } = req.params
+    const { datasett, malform: målform, dokumentApiNavn } = req.params
 
     try {
-      const query = `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-        maalform == Målform.NB ? 'Bokmaal' : 'Nynorsk'
-      }`
+      const query = `*[ _type == "dokument" && apiNavn == $dokumentApiNavn ].[$tittel]`
 
-      logInfo(`Hent dokument query ${query}`)
-      const svar = await client(datasett).fetch(query)
+      logInfo(`Hent dokument med query: '${query}'`)
+      const svar = await client(datasett).fetch(query, {
+        dokumentApiNavn,
+        tittel: målform == Målform.NB ? 'tittelBokmaal' : 'tittelNynorsk',
+      })
 
       return res.status(200).send(svar)
     } catch (feil: any) {
@@ -35,16 +36,16 @@ router.get<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: st
   },
 )
 
-router.post<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: string }, any, IDokumentData>(
-  '/:datasett/dokument/:dokumentApiNavn/:maalform/html',
+router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, IDokumentData>(
+  '/:datasett/dokument/:dokumentApiNavn/:malform/html',
   async (req, res) => {
-    const { datasett, maalform, dokumentApiNavn } = req.params
+    const { datasett, malform: målform, dokumentApiNavn } = req.params
 
     const dokument = req.body
 
     try {
-      await validerDokumentApiData(datasett, maalform)
-      const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett)
+      await validerDokumentApiData(datasett, målform)
+      const html = await hentDokumentHtml(dokument, målform, dokumentApiNavn, datasett)
       res.send(html)
     } catch (feil: any) {
       if (feil instanceof Feil) {
@@ -57,16 +58,16 @@ router.post<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: s
   },
 )
 
-router.post<string, { datasett: Datasett; maalform: Målform; dokumentApiNavn: string }, any, IDokumentData>(
-  '/:datasett/dokument/:dokumentApiNavn/:maalform/pdf',
+router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, IDokumentData>(
+  '/:datasett/dokument/:dokumentApiNavn/:malform/pdf',
   async (req, res) => {
-    const { datasett, maalform, dokumentApiNavn } = req.params
+    const { datasett, malform: målform, dokumentApiNavn } = req.params
 
     const dokument = req.body
 
     try {
-      await validerDokumentApiData(datasett, maalform)
-      const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett)
+      await validerDokumentApiData(datasett, målform)
+      const html = await hentDokumentHtml(dokument, målform, dokumentApiNavn, datasett)
       const pdf = await genererPdf(html)
       res.setHeader('Content-Type', 'application/pdf')
       res.setHeader('Content-Disposition', `attachment; file=${dokumentApiNavn}.pdf`)

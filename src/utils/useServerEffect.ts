@@ -6,9 +6,9 @@
  * kan bruke asynkrone kall selv om man bruker server side rendering.
  */
 import { useContext, useState } from 'react'
-import Context from './Context'
+import { Context } from './Context'
 
-function useServerEffect(initial: any, key: any, effect: any) {
+export function useServerEffect(initial: any, key: any, effect: any) {
   const context: any = useContext(Context)
   const [data] = useState(context[key] || initial)
   if (context.requests && !context[key]) {
@@ -20,5 +20,3 @@ function useServerEffect(initial: any, key: any, effect: any) {
   }
   return [data]
 }
-
-export default useServerEffect

@@ -1,6 +1,6 @@
 import React from 'react'
-import type { Flettefelt } from '../typer/dokumentApi'
 import { NavIkon } from '../ikoner/navIkon'
+import type { Flettefelt } from '../typer/dokumentApi'
 import { Feil } from '../utils/Feil'
 
 interface HeaderProps {
@@ -9,7 +9,7 @@ interface HeaderProps {
   visLogo?: boolean
 }
 
-function Header(props: HeaderProps) {
+export function Header(props: HeaderProps) {
   const { tittel, brevOpprettetDato, visLogo } = props
 
   if (brevOpprettetDato === undefined || brevOpprettetDato === '') {
@@ -31,5 +31,3 @@ function Header(props: HeaderProps) {
     </div>
   )
 }
-
-export default Header

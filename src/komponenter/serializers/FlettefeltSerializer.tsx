@@ -1,11 +1,11 @@
 import { Feil } from '../../utils/Feil'
 
-export interface FlettefeltBlock {
+export interface FlettefeltSerializerProps {
   _type: 'flettefelt'
   flettefelt: string
 }
 
-const FlettefeltSerializer = (props: any) => {
+export function FlettefeltSerializer(props: any /* fixme bruk FlettefeltSerializerProps */) {
   const { sanityProps, flettefelter, dokumentApiNavn } = props
   const { flettefelt } = sanityProps.value
 
@@ -17,5 +17,3 @@ const FlettefeltSerializer = (props: any) => {
 
   return flettefeltVerdi
 }
-
-export default FlettefeltSerializer
