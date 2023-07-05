@@ -18,5 +18,5 @@ app.use('/api', routes)
 const port = process.env.PORT || 8001
 
 app.listen(port, () => {
-  logInfo(`Server now listening on port: ${port}. NODE_ENV: ${process.env.NODE_ENV}`)
+  logInfo(`Lytter på port: ${port}, NODE_ENV: ${process.env.NODE_ENV}`)
 })
