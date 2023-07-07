@@ -6,8 +6,6 @@ import { rightTrimLastProp } from '../../utils/rightTrim'
 export function BlockSerializer(props: PortableTextComponentProps<PortableTextBlock>) {
   const children = rightTrimLastProp(props)
 
-  console.log(props.isInline, props.value)
-
   const Tag = settTag(props.value)
 
   return (
