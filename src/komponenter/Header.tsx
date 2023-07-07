@@ -3,7 +3,7 @@ import { NavIkon } from '../ikoner/navIkon'
 import type { Flettefelt } from '../typer/dokumentApi'
 import { Feil } from '../utils/Feil'
 
-interface HeaderProps {
+export interface HeaderProps {
   tittel: string
   brevOpprettetDato: Flettefelt
   visLogo?: boolean
@@ -14,7 +14,7 @@ export function Header(props: HeaderProps) {
 
   if (brevOpprettetDato === undefined || brevOpprettetDato === '') {
     throw new Feil(
-      `Mangler dato for brevet som skal vises i headeren. Sendes inn som "brevOpprettetDato" eller "dato" i flettefelter objektet.`,
+      `Mangler dato for brevet som skal vises i headeren. Sendes inn som "brevOpprettetDato" eller "dato" i flettefelter-objektet.`,
       400,
     )
   }

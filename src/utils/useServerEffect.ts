@@ -8,9 +8,9 @@
 import { useContext, useState } from 'react'
 import { Context } from './Context'
 
-export function useServerEffect(initial: any, key: any, effect: any) {
-  const context: any = useContext(Context)
-  const [data] = useState(context[key] || initial)
+export function useServerEffect<T = any>(initial: T | undefined, key: string, effect: () => Promise<T>) {
+  const context = useContext(Context)
+  const [data] = useState<T | undefined>(context[key] || initial)
   if (context.requests && !context[key]) {
     context.requests.push(
       effect().then((data: any) => {

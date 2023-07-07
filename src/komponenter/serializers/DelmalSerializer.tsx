@@ -1,20 +1,18 @@
+import type { PortableTextTypeComponentProps } from '@portabletext/react'
 import { PortableText } from '@portabletext/react'
 import React from 'react'
-import type { IDelmalData } from '../../typer/dokumentApi'
 import type { Målform } from '../../typer/sanityGrensesnitt'
 import { BlockSerializer } from './BlockSerializer'
 
-export interface DelmalSerializerProps {
-  sanityProps: any
-  delmalData?: IDelmalData
+export interface DelmalSerializerProps extends PortableTextTypeComponentProps<{ delmalReferanse: any }> {
   målform: Målform
 }
 
 export function DelmalSerializer(props: DelmalSerializerProps) {
-  const { sanityProps, målform } = props
-  const { delmalReferanse } = sanityProps.value
+  const { value, målform } = props
+  const { delmalReferanse } = value
 
-  // TODO Flettefelt i delmaler er ikke støttet enda
+  // todo -> flettefelt i delmaler er ikke støttet ennå
 
   return (
     <div className="delmal">
@@ -23,7 +21,7 @@ export function DelmalSerializer(props: DelmalSerializerProps) {
         components={{
           block: BlockSerializer,
           types: {
-            undefined: (_: any) => <div />,
+            undefined: () => <div />,
           },
         }}
       />

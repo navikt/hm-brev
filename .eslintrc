@@ -55,7 +55,8 @@
         "trailingComma": "all"
       }
     ],
-    "react-app/react-hooks/exhaustive-deps": "off"
+    "react-app/react-hooks/exhaustive-deps": "off",
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {

@@ -3,33 +3,33 @@ import React from 'react'
 import { hentDokumentQuery } from '../sanity/Queries'
 import type { Datasett } from '../sanity/sanityClient'
 import { client } from '../sanity/sanityClient'
-import type { IDokumentData } from '../typer/dokumentApi'
+import type { DokumentData } from '../typer/dokumentApi'
 import { DokumentType } from '../typer/DokumentType'
 import type { Målform } from '../typer/sanityGrensesnitt'
 import { Feil } from '../utils/Feil'
 import { useServerEffect } from '../utils/useServerEffect'
 import { BegrunnelserSerializer } from './serializers/BegrunnelserSerializer'
+import { BetingetTekstSerializer } from './serializers/BetingetTekstSerializer'
 import { BlockSerializer } from './serializers/BlockSerializer'
 import { DelmalSerializer } from './serializers/DelmalSerializer'
 import { FlettefeltSerializer } from './serializers/FlettefeltSerializer'
 
 export interface DokumentProps {
   dokumentApiNavn: string
-  dokumentData: IDokumentData | undefined
+  dokumentData?: DokumentData
   målform: Målform
   datasett: Datasett
 }
 
-export function Dokument(dokumentProps: DokumentProps) {
-  const { dokumentApiNavn, dokumentData, målform, datasett } = dokumentProps
-
+export function Dokument(props: DokumentProps) {
+  const { dokumentApiNavn, dokumentData, målform, datasett } = props
   const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
     const query = hentDokumentQuery(DokumentType.DOKUMENT, dokumentApiNavn, målform)
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
         if (!res[målform]) {
-          throw new Feil(`Fant ikke ${målform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}"`, 404)
+          throw new Feil(`Fant ikke ${målform}-tekst for "${dokumentApiNavn}" i datasettet "${datasett}"`, 404)
         }
 
         return res[målform]
@@ -40,32 +40,46 @@ export function Dokument(dokumentProps: DokumentProps) {
     return null
   }
 
+  const { flettefelter = {}, betingelser = {}, begrunnelser = [] } = dokumentData || {}
+
   return (
     <PortableText
       value={dokument}
       components={{
         block: BlockSerializer,
         types: {
-          delmal: (props: any) =>
-            DelmalSerializer({
-              sanityProps: props,
-              delmalData: dokumentData?.delmalData,
-              målform,
-            }),
-          flettefelt: (props: any) =>
-            FlettefeltSerializer({
-              sanityProps: props,
-              flettefelter: dokumentData?.flettefelter,
-              dokumentApiNavn,
-            }),
-          begrunnelser: (props: any) =>
-            BegrunnelserSerializer({
-              sanityProps: props,
-              begrunnelser: dokumentData?.begrunnelser,
-              flettefelter: dokumentData?.flettefelter,
-              målform,
-              datasett,
-            }),
+          delmal(props) {
+            return <DelmalSerializer {...props} målform={målform} />
+          },
+          begrunnelser(props) {
+            return (
+              <BegrunnelserSerializer
+                {...props}
+                begrunnelser={begrunnelser}
+                flettefelter={flettefelter}
+                målform={målform}
+                datasett={datasett}
+              />
+            )
+          },
+          betingetTekst(props) {
+            return (
+              <BetingetTekstSerializer
+                {...props}
+                betingelser={betingelser}
+                flettefelter={flettefelter}
+                dokumentApiNavn={dokumentApiNavn}
+              />
+            )
+          },
+          flettefelt(props) {
+            return <FlettefeltSerializer {...props} flettefelter={flettefelter} dokumentApiNavn={dokumentApiNavn} />
+          },
+        },
+        marks: {
+          betingetVisning(props) {
+            return 'TODO'
+          },
         },
       }}
     />

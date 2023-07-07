@@ -3,7 +3,7 @@ import { hentDokumentHtml } from './hentDokumentHtml'
 import { genererPdf } from './pdf'
 import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
-import type { IDokumentData } from './typer/dokumentApi'
+import type { DokumentData } from './typer/dokumentApi'
 import { Målform } from './typer/sanityGrensesnitt'
 import { Feil } from './utils/Feil'
 import { logError, logInfo } from './utils/logging'
@@ -36,7 +36,7 @@ router.get<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: str
   },
 )
 
-router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, IDokumentData>(
+router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, DokumentData>(
   '/:datasett/dokument/:dokumentApiNavn/:malform/html',
   async (req, res) => {
     const { datasett, malform: målform, dokumentApiNavn } = req.params
@@ -58,7 +58,7 @@ router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: st
   },
 )
 
-router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, IDokumentData>(
+router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, DokumentData>(
   '/:datasett/dokument/:dokumentApiNavn/:malform/pdf',
   async (req, res) => {
     const { datasett, malform: målform, dokumentApiNavn } = req.params

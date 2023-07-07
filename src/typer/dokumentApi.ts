@@ -1,15 +1,13 @@
-import type { Begrunnelser } from './typer'
-
-export interface IDokumentData {
-  delmalData: IDelmalData
+export interface DokumentData {
   flettefelter: Flettefelter
-  begrunnelser: Begrunnelser
+  betingelser?: Betingelser
+  begrunnelser?: Begrunnelser
 }
-
-export interface IDelmalData {
-  [key: string]: Flettefelter
-}
-
-export type Flettefelter = { [key: string]: Flettefelt }
 
 export type Flettefelt = string
+
+export type Flettefelter = Record<string, Flettefelt>
+
+export type Betingelser = Record<string, boolean>
+
+export type Begrunnelser = string[]

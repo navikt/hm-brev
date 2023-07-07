@@ -1,11 +1,11 @@
-import type { FlettefeltBlock } from '../../typer/typer'
+import type { SchemaFlettefelt } from '../../typer/schema'
 import { Feil } from '../../utils/Feil'
 
-export const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any, apiNavn: string): string => {
-  const flettefeltVerdi = data[flettefeltBlock.flettefelt]
+export function formaterFlettefelt({ flettefelt }: SchemaFlettefelt, data: any, apiNavn: string): string {
+  const flettefeltVerdi = data[flettefelt]
 
   if (flettefeltVerdi === undefined || flettefeltVerdi === '') {
-    throw new Feil(`Flettefeltet "${flettefeltBlock.flettefelt}" mangler for begrunnelse ${apiNavn}`, 400)
+    throw new Feil(`Flettefeltet "${flettefelt}" mangler for begrunnelse ${apiNavn}`, 400)
   }
 
   return flettefeltVerdi

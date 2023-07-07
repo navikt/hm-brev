@@ -1,8 +1,12 @@
+import type { PortableTextComponentProps } from '@portabletext/react'
+import type { PortableTextBlock } from '@portabletext/types'
 import React from 'react'
 import { rightTrimLastProp } from '../../utils/rightTrim'
 
-export function BlockSerializer(props: any) {
+export function BlockSerializer(props: PortableTextComponentProps<PortableTextBlock>) {
   const children = rightTrimLastProp(props)
+
+  console.log(props.isInline, props.value)
 
   const Tag = settTag(props.value)
 
@@ -13,10 +17,11 @@ export function BlockSerializer(props: any) {
   )
 }
 
-function settTag(node: any) {
+// fixme -> bytt til riktig type i return
+function settTag(node: PortableTextBlock): any {
   const style = node.style
 
-  if (RegExp('/?h[1-6]').test(style)) {
+  if (style && RegExp('/?h[1-6]').test(style)) {
     return style
   }
 

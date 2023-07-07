@@ -5,29 +5,30 @@ import { Header } from './komponenter/Header'
 import type { Datasett } from './sanity/sanityClient'
 import { client } from './sanity/sanityClient'
 import { styles } from './styles/styles'
-import type { IDokumentData } from './typer/dokumentApi'
+import type { DokumentData } from './typer/dokumentApi'
 import { Målform } from './typer/sanityGrensesnitt'
 import { Context } from './utils/Context'
 import { Feil } from './utils/Feil'
 
 export async function hentDokumentHtml(
-  apiDokument: IDokumentData,
+  apiDokument: DokumentData,
   målform: Målform,
   dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> {
-  const query = `*[ _type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-    målform == Målform.NB ? 'Bokmaal' : 'Nynorsk'
-  }`
+  const query = `*[ _type == "dokument" && apiNavn == $dokumentApiNavn ].[$tittel]`
 
   const htmlLang = () => {
     return målform === Målform.NB ? 'nb' : 'nn'
   }
 
-  const [tittel] = await client(datasett).fetch(query)
+  const [tittel] = await client(datasett).fetch<string[]>(query, {
+    dokumentApiNavn,
+    tittel: målform == Målform.NB ? 'tittelBokmaal' : 'tittelNynorsk',
+  })
 
   if (!tittel) {
-    throw new Feil(`Fant ikke ${målform}-tittel til "${dokumentApiNavn}" i datasettet "${datasett}`, 404)
+    throw new Feil(`Fant ikke ${målform}-tittel til "${dokumentApiNavn}" i datasettet "${datasett}"`, 404)
   }
 
   const contextValue = { requests: [] }
@@ -59,7 +60,7 @@ export async function hentDokumentHtml(
     </Context.Provider>
   )
 
-  async function byggDokumentAsynkront() {
+  const byggDokumentAsynkront = async () => {
     const html = renderToStaticMarkup(asyncHtml())
     await Promise.all(contextValue.requests)
     return html
