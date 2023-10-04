@@ -14,7 +14,7 @@ export function FlettefeltSerializer(props: FlettefeltSerializerProps) {
 
   const flettefeltVerdi = flettefelter[flettefelt]
 
-  if (flettefeltVerdi === undefined || flettefeltVerdi === '') {
+  if (flettefeltVerdi == null) {
     throw new Feil(`Flettefeltet "${flettefelt}" mangler for "${dokumentApiNavn}"`, 400)
   }
 
