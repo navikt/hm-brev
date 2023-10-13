@@ -49,7 +49,15 @@ export function Dokument(props: DokumentProps) {
         block: BlockSerializer,
         types: {
           delmal(props) {
-            return <DelmalSerializer {...props} målform={målform} />
+            return (
+              <DelmalSerializer
+                {...props}
+                målform={målform}
+                betingelser={betingelser}
+                flettefelter={flettefelter}
+                dokumentApiNavn={dokumentApiNavn}
+              />
+            )
           },
           begrunnelser(props) {
             return (
