@@ -2,6 +2,7 @@ export interface DokumentData {
   flettefelter: Flettefelter
   betingelser?: Betingelser
   begrunnelser?: Begrunnelser
+  sakId: string
 }
 
 export type Flettefelt = string
