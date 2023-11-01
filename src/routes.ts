@@ -36,16 +36,23 @@ router.get<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: str
   },
 )
 
-router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, DokumentData>(
+interface LagBrevRequest {
+  datasett: Datasett
+  malform: Målform
+  dokumentApiNavn: string
+  sakId: string
+}
+
+router.post<string, LagBrevRequest, any, DokumentData>(
   '/:datasett/dokument/:dokumentApiNavn/:malform/html',
   async (req, res) => {
-    const { datasett, malform: målform, dokumentApiNavn } = req.params
+    const { datasett, malform: målform, dokumentApiNavn, sakId } = req.params
 
     const dokument = req.body
 
     try {
       await validerDokumentApiData(datasett, målform)
-      const html = await hentDokumentHtml(dokument, målform, dokumentApiNavn, datasett)
+      const html = await hentDokumentHtml(dokument, målform, dokumentApiNavn, datasett, sakId)
       res.send(html)
     } catch (feil: any) {
       if (feil instanceof Feil) {
@@ -58,16 +65,16 @@ router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: st
   },
 )
 
-router.post<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: string }, any, DokumentData>(
+router.post<string, LagBrevRequest, any, DokumentData>(
   '/:datasett/dokument/:dokumentApiNavn/:malform/pdf',
   async (req, res) => {
-    const { datasett, malform: målform, dokumentApiNavn } = req.params
+    const { datasett, malform: målform, dokumentApiNavn, sakId } = req.params
 
     const dokument = req.body
 
     try {
       await validerDokumentApiData(datasett, målform)
-      const html = await hentDokumentHtml(dokument, målform, dokumentApiNavn, datasett)
+      const html = await hentDokumentHtml(dokument, målform, dokumentApiNavn, datasett, sakId)
       const pdf = await genererPdf(html)
       res.setHeader('Content-Type', 'application/pdf')
       res.setHeader('Content-Disposition', `attachment; file=${dokumentApiNavn}.pdf`)

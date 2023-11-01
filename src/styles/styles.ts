@@ -49,12 +49,6 @@ export const styles = `
         white-space: pre-wrap;
     }
 
-    @page {
-        @bottom-right {
-            content: 'Side ' counter(page) ' av ' counter(pages);
-        }
-    }
-
     .høyrestill {
         float: right;
         white-space: normal;

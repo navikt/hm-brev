@@ -15,6 +15,7 @@ export async function hentDokumentHtml(
   målform: Målform,
   dokumentApiNavn: string,
   datasett: Datasett,
+  sakId: string,
 ): Promise<string> {
   const query = `*[ _type == "dokument" && apiNavn == $dokumentApiNavn ].[$tittel]`
 
@@ -36,6 +37,18 @@ export async function hentDokumentHtml(
   const asyncHtml = () => (
     <Context.Provider value={contextValue}>
       <html lang={htmlLang()}>
+        <style>
+          {`
+                    @page {
+                        @bottom-right {
+                            content: 'Side ' counter(page) ' av ' counter(pages);
+                        }
+                        @bottom-left {
+                            content: 'Saksnummer ${sakId}';
+                        }
+                    }
+                    `}
+        </style>
         <head>
           <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
           <style type="text/css">{styles}</style>
