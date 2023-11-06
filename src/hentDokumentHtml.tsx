@@ -15,7 +15,7 @@ export async function hentDokumentHtml(
   målform: Målform,
   dokumentApiNavn: string,
   datasett: Datasett,
-  sakId: string,
+  sakId?: string,
 ): Promise<string> {
   const query = `*[ _type == "dokument" && apiNavn == $dokumentApiNavn ].[$tittel]`
 
@@ -34,44 +34,47 @@ export async function hentDokumentHtml(
 
   const contextValue = { requests: [] }
 
-  const asyncHtml = () => (
-    <Context.Provider value={contextValue}>
-      <html lang={htmlLang()}>
-        <style>
-          {`
+  const asyncHtml = () => {
+    const bunntekst = sakId ? `Saksnummer ${sakId}` : ''
+    return (
+      <Context.Provider value={contextValue}>
+        <html lang={htmlLang()}>
+          <style>
+            {`
                     @page {
                         @bottom-right {
                             content: 'Side ' counter(page) ' av ' counter(pages);
                         }
                         @bottom-left {
-                            content: 'Saksnummer ${sakId}';
+                            content: '${bunntekst}';
                         }
                     }
                     `}
-        </style>
-        <head>
-          <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-          <style type="text/css">{styles}</style>
-          <title>{tittel}</title>
-        </head>
-        <body className={'body'}>
-          <div>
-            <Header
-              visLogo={true}
-              tittel={tittel}
-              brevOpprettetDato={apiDokument?.flettefelter?.brevOpprettetDato || apiDokument?.flettefelter?.dato}
-            />
-            <Dokument
-              dokumentApiNavn={dokumentApiNavn}
-              dokumentData={apiDokument}
-              målform={målform}
-              datasett={datasett}
-            />
-          </div>
-        </body>
-      </html>
-    </Context.Provider>
-  )
+          </style>
+          <head>
+            <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
+            <style type="text/css">{styles}</style>
+            <title>{tittel}</title>
+          </head>
+          <body className={'body'}>
+            <div>
+              <Header
+                visLogo={true}
+                tittel={tittel}
+                brevOpprettetDato={apiDokument?.flettefelter?.brevOpprettetDato || apiDokument?.flettefelter?.dato}
+              />
+              <Dokument
+                dokumentApiNavn={dokumentApiNavn}
+                dokumentData={apiDokument}
+                målform={målform}
+                datasett={datasett}
+              />
+            </div>
+          </body>
+        </html>
+      </Context.Provider>
+    )
+  }
 
   const byggDokumentAsynkront = async () => {
     const html = renderToStaticMarkup(asyncHtml())
