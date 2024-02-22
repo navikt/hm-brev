@@ -19,7 +19,7 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     outputs:
-      docker_image: ${{ steps.docker-build-push.outputs.image }}
+      image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
@@ -52,11 +52,12 @@ jobs:
           echo "steps.docker-build-push.outputs.image=${{steps.docker-build-push.outputs.image}}"
           echo "needs.build.steps.docker-build-push.outputs.image=${{needs.build.steps.docker-build-push.outputs.image}}"
           echo "needs.build.outputs.docker-image=${{needs.build.outputs.docker-image}}"
+          echo "needs.build.outputs.image=${{needs.build.outputs.image}}"
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais-dev.yaml
-          VAR: image=${{ steps.docker-build-push.outputs.image }}
+          VAR: image=${{ needs.build.outputs.image }}
 
   deploy-prod:
     name: Deploy to prod
@@ -71,4 +72,4 @@ jobs:
           env:
             CLUSTER: prod-gcp
             RESOURCE: .nais/nais-prod.
-            VAR: image=${{ steps.docker-build-push.outputs.image }}
+            VAR: image=${{ needs.build.outputs.image }}
