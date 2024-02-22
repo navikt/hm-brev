@@ -47,7 +47,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo "steps.docker-build-push.outputs.image=${steps.docker-build-push.outputs.image}"
           echo "needs.build.steps.docker-build-push.outputs.image=${needs.build.steps.docker-build-push.outputs.image}"
       - uses: nais/deploy/actions/deploy@v2
         env:
