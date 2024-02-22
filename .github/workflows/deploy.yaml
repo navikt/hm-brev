@@ -48,11 +48,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          echo "steps.docker-build-push.outputs.image=${{steps.docker-build-push.outputs.image}}"
-          echo "needs.build.steps.docker-build-push.outputs.image=${{needs.build.steps.docker-build-push.outputs.image}}"
-          echo "needs.build.outputs.docker-image=${{needs.build.outputs.docker-image}}"
-          echo "needs.build.outputs.image=${{needs.build.outputs.image}}"
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
@@ -64,7 +59,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    needs: deploy-dev
+    needs: [build, deploy-dev]
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
