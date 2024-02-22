@@ -18,6 +18,8 @@ jobs:
       contents: write
       id-token: write
     runs-on: ubuntu-latest
+    outputs:
+      docker_image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
@@ -49,6 +51,7 @@ jobs:
       - run: |
           echo "steps.docker-build-push.outputs.image=${{steps.docker-build-push.outputs.image}}"
           echo "needs.build.steps.docker-build-push.outputs.image=${{needs.build.steps.docker-build-push.outputs.image}}"
+          echo "needs.build.outputs.docker-image=${needs.build.outputs.docker-image}"
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
