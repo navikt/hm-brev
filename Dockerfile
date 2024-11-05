@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/nodejs:18
+FROM gcr.io/distroless/nodejs22-debian12:nonroot
 WORKDIR /app
 COPY node_modules node_modules
 COPY dist .
