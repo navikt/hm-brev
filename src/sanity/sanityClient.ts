@@ -2,7 +2,6 @@ import { createClient } from '@sanity/client'
 
 export enum Datasett {
   HOTSAK_BREV_PROD = 'hotsak-brev-prod',
-  HOTSAK_BREV_DEV = 'hotsak-brev-dev',
 }
 
 export function client(dataset: Datasett) {
