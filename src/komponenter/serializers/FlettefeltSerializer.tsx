@@ -22,6 +22,8 @@ export function FlettefeltSerializer(props: FlettefeltSerializerProps) {
 
   if (flettefelt == "markdown") {
     const md = marked.parse(flettefeltVerdi, { async: false })
+    // FIXME: Fjern debuglogging igjen
+    console.log('here', md)
     return (
         <div dangerouslySetInnerHTML={{ __html: md }} />
     )
