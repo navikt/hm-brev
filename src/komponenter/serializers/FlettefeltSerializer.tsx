@@ -21,9 +21,7 @@ export function FlettefeltSerializer(props: FlettefeltSerializerProps) {
   }
 
   if (flettefelt == "markdown") {
-    const md = marked.parse(flettefeltVerdi, { async: false })
-    // FIXME: Fjern debuglogging igjen
-    console.log('here', md)
+    const md = fiksAvkryssingsbokser(marked.parse(flettefeltVerdi, { async: false }))
     return (
         <div dangerouslySetInnerHTML={{ __html: md }} />
     )
@@ -34,4 +32,10 @@ export function FlettefeltSerializer(props: FlettefeltSerializerProps) {
         {flettefeltVerdi}
       </>
   )
+}
+
+function fiksAvkryssingsbokser(md: string): string {
+  // Avkryssingsbokser som er krysset ut funker litt dårlig med openhtmltopdf, bytter de ut med karakterer fra fonten
+  // som viser avkryssingsboks med og uten kryss.
+  return md.replaceAll(/<input[^>]*checked[^>]*>/g, '&#x2611;').replaceAll(/<input[^>]*>/g, '&#x2610;')
 }
