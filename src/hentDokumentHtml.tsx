@@ -9,6 +9,7 @@ import type { DokumentData } from './typer/dokumentApi'
 import { Målform } from './typer/sanityGrensesnitt'
 import { Context } from './utils/Context'
 import { Feil } from './utils/Feil'
+import { bunntekst } from './styles/bunntekst'
 
 export async function hentDokumentHtml(
   apiDokument: DokumentData,
@@ -35,26 +36,14 @@ export async function hentDokumentHtml(
   const contextValue = { requests: [] }
 
   const asyncHtml = () => {
-    const bunntekst = sakId ? `Saksnummer ${sakId}` : ''
     return (
       <Context.Provider value={contextValue}>
         <html lang={htmlLang()}>
-          <style>
-            {`
-                    @page {
-                        @bottom-right {
-                            content: 'Side ' counter(page) ' av ' counter(pages);
-                        }
-                        @bottom-left {
-                            content: '${bunntekst}';
-                        }
-                    }
-                    `}
-          </style>
           <head>
-            <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-            <style type="text/css">{styles}</style>
+            <meta charSet="UTF-8" />
             <title>{tittel}</title>
+            <style>{bunntekst(sakId ? `Saksnummer ${sakId}` : '')}</style>
+            <style>{styles}</style>
           </head>
           <body className={'body'}>
             <div>
@@ -79,7 +68,7 @@ export async function hentDokumentHtml(
   const byggDokumentAsynkront = async () => {
     const html = renderToStaticMarkup(asyncHtml())
     await Promise.all(contextValue.requests)
-    return html
+    return '<!DOCTYPE html>' + html
   }
 
   /*

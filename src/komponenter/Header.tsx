@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavIkon } from '../ikoner/navIkon'
+import { NavIkon } from '../ikoner/NavIkon'
 import type { Flettefelt } from '../typer/dokumentApi'
 import { Feil } from '../utils/Feil'
 

@@ -28,10 +28,9 @@ router.get<string, { datasett: Datasett; malform: Målform; dokumentApiNavn: str
         dokumentApiNavn,
         tittel: målform == Målform.NB ? 'tittelBokmaal' : 'tittelNynorsk',
       })
-
-      return res.status(200).send(svar)
+      res.status(200).send(svar)
     } catch (feil: any) {
-      return res.status(500).send(feil)
+      res.status(500).send(feil)
     }
   },
 )
@@ -55,11 +54,12 @@ router.post<string, LagBrevParametre, any, DokumentData>(
       res.send(html)
     } catch (feil: any) {
       if (feil instanceof Feil) {
-        return res.status(feil.code).send(feil.message)
+        res.status(feil.code).send(feil.message)
+        return
       }
 
       logError(`Generering av html dokument feilet: ${feil.message}`)
-      return res.status(500).send(`Generering av html dokument feilet: ${feil.message}`)
+      res.status(500).send(`Generering av html dokument feilet: ${feil.message}`)
     }
   },
 )
@@ -80,11 +80,12 @@ router.post<string, LagBrevParametre, any, DokumentData>(
       res.end(pdf)
     } catch (feil: any) {
       if (feil instanceof Feil) {
-        return res.status(feil.code).send(feil.message)
+        res.status(feil.code).send(feil.message)
+        return
       }
 
       logError(`Generering av PDF-dokument feilet: ${feil.message}`)
-      return res.status(500).send(`Generering av PDF-dokument feilet: ${feil.message}`)
+      res.status(500).send(`Generering av PDF-dokument feilet: ${feil.message}`)
     }
   },
 )
