@@ -1,7 +1,7 @@
 //language=CSS
 export const styles = `
     .body {
-        font-family: Source Sans Pro, sans-serif;
+        font-family: 'Source Sans 3', sans-serif;
         font-size: 12pt;
         line-height: 1.4em;
         margin: 0;
@@ -10,8 +10,8 @@ export const styles = `
 
     .ikon-og-dato {
         position: absolute;
-        right: 0px;
-        top: 0px;
+        right: 0;
+        top: 0;
         margin: 0;
         padding: 0;
     }
@@ -20,7 +20,7 @@ export const styles = `
         width: 100px;
         height: 65px;
         position: relative;
-        right: 0px;
+        right: 0;
         margin: 0;
         padding: 0;
     }

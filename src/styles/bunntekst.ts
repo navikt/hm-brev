@@ -3,12 +3,12 @@ export function bunntekst(tekst: string) {
   return `
     @page {
       @bottom-right {
-        font-family: Source Sans Pro, sans-serif;
+        font-family: 'Source Sans 3', sans-serif;
         content: 'Side ' counter(page) ' av ' counter(pages);
       }
 
       @bottom-left {
-        font-family: Source Sans Pro, sans-serif;
+        font-family: 'Source Sans 3', sans-serif;
         content: '${tekst}';
       }
     }
