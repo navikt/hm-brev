@@ -45,6 +45,7 @@ router.post<string, LagBrevParametre, any, DokumentData>(
   '/:datasett/dokument/:dokumentApiNavn/:malform/html',
   async (req, res) => {
     const { datasett, malform: målform, dokumentApiNavn } = req.params
+    logInfo(`Hent html med: datasett='${datasett}', målform='${målform}', dokumentApiNavn='${dokumentApiNavn}'`)
 
     const dokument = req.body
 
@@ -68,6 +69,7 @@ router.post<string, LagBrevParametre, any, DokumentData>(
   '/:datasett/dokument/:dokumentApiNavn/:malform/pdf',
   async (req, res) => {
     const { datasett, malform: målform, dokumentApiNavn } = req.params
+    logInfo(`Hent pdf med: datasett='${datasett}', målform='${målform}', dokumentApiNavn='${dokumentApiNavn}'`)
 
     const dokument = req.body
 
