@@ -1,6 +1,8 @@
 # hm-brev
 ====================
 
+ARKIVERT: Brevgenerering skjer nå fullt og helt i hm-pdf-generator (ren handlebars, ingen sanity)
+
 Brev-generator for hjelpemiddelområdet. 
 Appen generer html fra innsendte flettefelter ved bruk av sanity (se [hm-sanity-brev](https://github.com/navikt/hm-sanity-brev)) og pdf ved bruk av  TODO
 Konsumenter kan få returnert html eller pdf/bytearray.
